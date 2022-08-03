@@ -29,11 +29,11 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/sprite.js"></script>
     <script src="js/jogo.js"></script>
+    <script src="js/controller.js"></script>
     <script>
         //inicializa o jogo e o sprite
-        var sprite = createSprite('.sprite');
-        var novoJogo = criaJogo(sprite);
-        novoJogo.setPalavraSecreta('arthur');
+        let controlador = criaController(criaJogo(createSprite('.sprite')));
+        controlador.inicia(); 
     </script>
 </body>
 

@@ -5,8 +5,8 @@ function createSprite(tagSprite) {
         lastFrame: 9,
 
         reset: function () {
-            this.tag.className = `sprite frame1`;
-            actualFrame = 1;
+            this.tag.className = `sprite`;
+            this.actualFrame = 1;
         },
 
         isFinished: function () {

@@ -1,10 +1,10 @@
-var criaJogo = function (sprite) {
+let criaJogo = function (sprite) {
 
-    var palavraSecreta = undefined;
-    var lacunas = [];
-    var etapa = 0;
+    let palavraSecreta = undefined;
+    let lacunas = [];
+    let etapa = 0;
 
-    var setPalavraSecreta = function (palavra) {
+    let setPalavraSecreta = function (palavra) {
         palavraSecreta = palavra;
         lacunas = Array(palavraSecreta.length).fill('');
         //Metodo para encher array manualmente
@@ -17,64 +17,73 @@ var criaJogo = function (sprite) {
 
     };
 
-    var getLacunas = function () {
+    let getLacunas = function () {
         console.log(lacunas);
     };
 
-    var getEtapa = function () {
+    let getLacunaX = function(x) {
+        return lacunas[x];
+    }
+
+    let getEtapa = function () {
         //Primeira etapa espera a palavra
         //Segunda etapa ta no jogo
-        if (palavraSecreta === undefined) etapa = 1;
-        else etapa = 2;
-        console.log(etapa);
+        return palavraSecreta === undefined ? 1 : 2;
     };
 
-    var processaChute = function (chute) {
+    let processaChute = function (chute) {
         let arrayPalavra = palavraSecreta.split("");
-        let acerto = false;
+        let acertos = 0;
 
         arrayPalavra.forEach((element, index) => {
             if (element.toLowerCase() === chute.toLowerCase()) {
                 lacunas[index] = chute;
-                acerto = true;
-                console.log('acertou chute');
+                acertos++;
             }
         });
 
-        if (acerto === false) {
-            console.log('errou o chute');
+        if(acertos == 0) {
             sprite.nextFrame();
+            return false;
         }
+
+        return true;
     }
 
-    var ganhou = function () {
+    let ganhou = function () {
         if (lacunas.includes("")) return false;
         else return true;
     }
 
-    var perdeu = function () {
+    let perdeu = function () {
         return sprite.isFinished();
     }
 
-    var ganhouOuPerdeu = function () {
+    let ganhouOuPerdeu = function () {
         return ganhou() || perdeu();
     }
 
-    var reinicia = function () {
+    let reinicia = function () {
         sprite.reset();
         palavraSecreta = undefined;
         lacunas = [];
         etapa = 0;
     }
 
+    function getPalavraSecreta(){
+        return palavraSecreta;
+    } 
+
     return {
         setPalavraSecreta: setPalavraSecreta,
         getLacunas: getLacunas,
+        getLacunaX: getLacunaX,
         getEtapa: getEtapa,
         processaChute: processaChute,
         ganhou: ganhou,
         perdeu: perdeu,
         ganhouOuPerdeu: ganhouOuPerdeu,
-        reinicia: reinicia
+        reinicia: reinicia,
+        getPalavraSecreta: getPalavraSecreta
     };
 };
